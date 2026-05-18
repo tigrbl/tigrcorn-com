@@ -8,10 +8,6 @@ on:
         required: true
         default: plan
 
-concurrency:
-  group: dns-tigrcorn.com
-  cancel-in-progress: false
-
 jobs:
   dns:
     runs-on: ubuntu-latest
