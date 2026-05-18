@@ -1,0 +1,24 @@
+---
+apiVersion: npmctl.com/v1
+schemaVersion: 2
+dns_records:
+  - provider: namecheap
+    zone: tigrcorn.com
+    type: A
+    name: "@"
+    value: 149.255.33.251
+    ttl: 300
+    meta:
+      managed_by: npmctl
+      owner: tigrcorn-com
+      resource_id: dns.tigrcorn-com.root-a
+  - provider: namecheap
+    zone: tigrcorn.com
+    type: CNAME
+    name: "www"
+    value: tigrcorn.com
+    ttl: 300
+    meta:
+      managed_by: npmctl
+      owner: tigrcorn-com
+      resource_id: dns.tigrcorn-com.www-cname
