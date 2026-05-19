@@ -88,6 +88,7 @@ jobs:
       - name: Check Nginx Proxy Manager API schema
         run: npmctl schema check || echo "NPM schema check reported limited endpoint permissions; continuing with proxy-host deploy."
       - name: Adopt matching unmanaged NPM resources
+        continue-on-error: true
         run: npmctl adopt .tmp/npmctl/proxy.yaml --owner tigrcorn-com --force
       - name: Plan Nginx Proxy Manager proxy host and certificates with npmctl
         run: npmctl plan .tmp/npmctl/proxy.yaml --owner tigrcorn-com
