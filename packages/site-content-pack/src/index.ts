@@ -14,6 +14,12 @@ export const siteContent = {
       { label: "Proof", href: "/proof/" },
       { label: "Docs", href: "https://docs.tigrcorn.com" }
     ],
+    compactLinks: [
+      { label: "Platform", href: "/platform/" },
+      { label: "Docs", href: "https://docs.tigrcorn.com" },
+      { label: "Transport visibility", href: "/articles/protocol-aware-runtime-keeps-transports-visible/" },
+      { label: "Publication proof", href: "/articles/repo-owned-runtime-publication-for-tigrcorn-com/" }
+    ],
     cta: { label: "Get started", href: "/platform/" }
   },
   footer: {
@@ -40,7 +46,7 @@ export const siteContent = {
       h1: "Tigrcorn",
       intro: "Tigrcorn is a governed ASGI runtime surface for HTTP, WebSocket, SSE, and modern protocol delivery. The site packages product positioning, structured metadata, and deployment evidence in a standalone MdWrk lander repository.",
       sections: [
-        { id: "hero", kind: "hero", eyebrow: "Tigrcorn", title: "ASGI runtime infrastructure for protocol-aware Python services.", subtitle: "Tigrcorn is a governed ASGI runtime surface for HTTP, WebSocket, SSE, and modern protocol delivery." },
+        { id: "hero", kind: "hero", eyebrow: "Protocol-aware runtime", title: "ASGI runtime infrastructure for protocol-aware Python services.", subtitle: "Tigrcorn is a governed ASGI runtime surface for HTTP, WebSocket, SSE, and modern protocol delivery." },
         { id: "platform", kind: "feature_grid", title: "What this site owns", items: [
           { title: "Product narrative", description: "Canonical product messaging, audience positioning, and calls to action for tigrcorn.com." },
           { title: "Structured discovery", description: "Search, assistant, social, and linked-data metadata generated from the content pack." },
