@@ -12,6 +12,8 @@ const homePage = siteContent.pages.find((page) => normalizePath(page.slug) === "
 const articlePages = siteContent.pages.filter((page) => normalizePath(page.slug).startsWith("/articles/"));
 const homeHeroSection = homePage?.sections.find((section) => section.kind === "hero");
 const homeEyebrow = homeHeroSection && "eyebrow" in homeHeroSection ? homeHeroSection.eyebrow : siteContent.product.category;
+const homeTitle = homeHeroSection && "title" in homeHeroSection ? homeHeroSection.title : (homePage?.h1 || siteContent.product.name);
+const homeSubtitle = homeHeroSection && "subtitle" in homeHeroSection ? homeHeroSection.subtitle : (homePage?.description || siteContent.product.description);
 const compactLinks = siteContent.nav.compactLinks ?? [];
 const currentYear = new Date().getUTCFullYear();
 const footerLinks = [
@@ -36,7 +38,11 @@ function SiteChrome({ children }: { children: React.ReactNode }) {
     <div className="site-shell">
       <header className="site-header">
         <a className="site-brand" href="/" aria-label={`${siteContent.product.name} home`}>
-          <img src="/assets/brand/tigrcorn/tigrcorn-logo-v4.png" alt={siteContent.product.name} />
+          <img className="site-brand-mark" src="/assets/brand/tigrcorn/tigrcorn-logo.png" alt="" aria-hidden="true" />
+          <span className="site-brand-copy">
+            <strong>{siteContent.product.name}</strong>
+            <span>{siteContent.product.tagline}</span>
+          </span>
         </a>
         <nav aria-label="Primary navigation">
           {siteContent.nav.primary.map((link) => (
@@ -64,9 +70,40 @@ function HomePage() {
   return (
     <SiteChrome>
       <section className="home-hero" aria-labelledby="hero-title">
-        <p className="eyebrow">{homeEyebrow}</p>
-        <h1 id="hero-title">{homePage?.h1 || siteContent.product.name}</h1>
-        <p>{homePage?.description || siteContent.product.description}</p>
+        <div className="hero-copy">
+          <p className="eyebrow">{homeEyebrow}</p>
+          <h1 id="hero-title">{homeTitle}</h1>
+          <p>{homeSubtitle}</p>
+          <div className="hero-actions">
+            {siteContent.nav.primary.map((link) => (
+              <a className="hero-action" key={link.href} href={link.href}>{link.label}</a>
+            ))}
+          </div>
+        </div>
+
+        <aside className="hero-brand-panel" aria-label="Tigrcorn brand panel">
+          <div className="hero-brand-lockup">
+            <img src="/assets/brand/tigrcorn/tigrcorn-logo.png" alt="" aria-hidden="true" />
+            <div className="hero-brand-type">
+              <strong>{siteContent.product.name}</strong>
+              <span>{siteContent.product.tagline}</span>
+            </div>
+          </div>
+          <div className="hero-brand-grid">
+            <div className="hero-brand-card">
+              <span className="hero-card-label">Protocols</span>
+              <p>HTTP, WebSocket, SSE, and governed runtime delivery.</p>
+            </div>
+            <div className="hero-brand-card">
+              <span className="hero-card-label">Publishing</span>
+              <p>Repo-owned Docker, DNS, and deploy workflows for the public edge.</p>
+            </div>
+            <div className="hero-brand-card">
+              <span className="hero-card-label">Positioning</span>
+              <p>Runtime infrastructure for teams that want visible transport boundaries.</p>
+            </div>
+          </div>
+        </aside>
       </section>
 
       <section className="article-list" aria-labelledby="articles-title">
