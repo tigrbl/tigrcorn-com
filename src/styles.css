@@ -42,18 +42,18 @@ footer {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  padding: 8px 14px 8px 10px;
-  border: 1px solid rgba(255, 247, 237, 0.2);
-  border-radius: 22px;
-  background: rgba(255, 247, 237, 0.92);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .site-brand img {
   display: block;
   width: auto;
-  height: 48px;
+  height: 56px;
   object-fit: contain;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.32));
 }
 
 .site-header nav,
@@ -282,6 +282,10 @@ footer p {
     align-items: flex-start;
     flex-direction: column;
     justify-content: center;
+  }
+
+  .site-brand img {
+    height: 50px;
   }
 
   main {
