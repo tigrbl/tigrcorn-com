@@ -1,7 +1,7 @@
 import React from 'react';
 import CopyableCode from './CopyableCode';
 
-type ExampleId = 'tigrbl' | 'fastapi' | 'asgi3';
+type ExampleId = 'tigrbl' | 'contract' | 'fastapi' | 'asgi3';
 
 const examples: Array<{
   id: ExampleId;
@@ -25,6 +25,32 @@ def health() -> dict[str, str]:
 uv run tigrcorn main:app --host 127.0.0.1 --port 8000`,
   },
   {
+    id: 'contract',
+    label: 'Pure Tigr-ASGI-Contract',
+    description: 'Build directly on ASGI3 while validating event payloads against the canonical Tigr transport contract.',
+    code: `from tigr_asgi_contract import validate_event_payload
+
+async def app(scope, receive, send):
+    assert scope["type"] == "http"
+
+    start = {
+        "type": "http.response.start",
+        "status": 200,
+        "headers": [[b"content-type", b"application/json"]],
+    }
+    body = {
+        "type": "http.response.body",
+        "body": b'{"status":"contract-valid"}',
+    }
+
+    assert validate_event_payload(start["type"], start)
+    assert validate_event_payload(body["type"], body)
+    await send(start)
+    await send(body)`,
+    commands: `uv add tigr-asgi-contract tigrcorn
+uv run tigrcorn main:app --host 127.0.0.1 --port 8000`,
+  },
+  {
     id: 'fastapi',
     label: 'FastAPI',
     description: 'Run an existing FastAPI application directly on Tigrcorn without changing its ASGI interface.',
@@ -40,7 +66,7 @@ uv run tigrcorn main:app --host 127.0.0.1 --port 8000`,
   },
   {
     id: 'asgi3',
-    label: 'ASGI3 only',
+    label: 'Pure ASGI3',
     description: 'Use a framework-free ASGI3 callable when you want direct control over the protocol boundary.',
     code: `async def app(scope, receive, send):
     assert scope["type"] == "http"
@@ -86,9 +112,7 @@ export default function QuickStartExamples() {
             >
               {example.label}
               {example.id === 'tigrbl' ? (
-                <span className="rounded-full bg-orange-500 px-1.5 py-0.5 text-[8px] uppercase tracking-wider text-white">
-                  Priority
-                </span>
+                <span role="img" aria-label="Priority example" title="Priority example">⭐</span>
               ) : null}
             </button>
           );
