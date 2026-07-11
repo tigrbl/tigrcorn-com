@@ -8,6 +8,7 @@
     "build": "vite build",
     "check": "npm run lint",
     "preview": "vite preview",
+    "proxy:target-check": "node scripts/validate-proxy-target.mjs",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit"
   },
