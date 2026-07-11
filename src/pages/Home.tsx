@@ -68,7 +68,7 @@ def read_root():
             </div>
 
             <div className="pt-4 max-w-md space-y-2">
-              <CopyableCode code={stableRelease.installCommand} language="bash" />
+              <CopyableCode code={`${stableRelease.uvInstallCommand}\n${stableRelease.installCommand}`} language="bash" title="Install with uv or pip" />
               <div className="flex items-center gap-4 text-xs font-mono text-slate-500 select-none">
                 <span>Stable Release: <strong>{stableRelease.version}</strong></span>
                 <span>•</span>

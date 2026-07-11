@@ -59,7 +59,7 @@ export default function Releases() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-900">
           <div className="space-y-2">
             <span className="text-xs font-mono font-bold text-slate-400 block">Deploy CLI Command</span>
-            <CopyableCode code={stableRelease.installCommand} language="bash" />
+            <CopyableCode code={`${stableRelease.uvInstallCommand}\n${stableRelease.installCommand}`} language="bash" title="Install with uv or pip" />
           </div>
           <div className="space-y-2">
             <span className="text-xs font-mono font-bold text-slate-400 block">Default Run Command</span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, BookOpen, Layers, Terminal, Shield, FileText } from 'lucide-react';
+import { Github, BookOpen, Shield, MessageCircle } from 'lucide-react';
 import { stableRelease } from '../data';
 
 interface FooterProps {
@@ -85,6 +85,12 @@ export default function Footer({ onNavigate }: FooterProps) {
                 <a href={stableRelease.docsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-white transition">
                   <BookOpen className="h-3.5 w-3.5" />
                   Canonical Docs
+                </a>
+              </li>
+              <li>
+                <a href={stableRelease.discordUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-white transition">
+                  <MessageCircle className="h-3.5 w-3.5" />
+                  Discord Community
                 </a>
               </li>
             </ul>

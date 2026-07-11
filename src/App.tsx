@@ -55,7 +55,8 @@ export default function App() {
         'url': `${baseUrl}/logo.png`
       },
       'sameAs': [
-        'https://github.com/tigrbl/tigrcorn'
+        stableRelease.githubUrl,
+        stableRelease.discordUrl
       ]
     };
 
@@ -121,7 +122,7 @@ export default function App() {
         },
         {
           q: 'How do I install Tigrcorn?',
-          a: 'You can install Tigrcorn via pip: python -m pip install tigrcorn.'
+          a: 'Install Tigrcorn with uv add tigrcorn, or use python -m pip install tigrcorn in an active environment.'
         },
         {
           q: 'What Python versions are supported by Tigrcorn?',
@@ -320,6 +321,14 @@ export default function App() {
     }
     metaDesc.setAttribute('content', description);
 
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonicalUrl);
+
     // Update or insert OpenGraph Tags
     let ogTitle = document.querySelector('meta[property="og:title"]');
     if (!ogTitle) {
@@ -336,6 +345,23 @@ export default function App() {
       document.head.appendChild(ogDesc);
     }
     ogDesc.setAttribute('content', description);
+
+    const upsertMeta = (selector: string, attribute: 'name' | 'property', key: string, content: string) => {
+      let element = document.querySelector(selector);
+      if (!element) {
+        element = document.createElement('meta');
+        element.setAttribute(attribute, key);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('content', content);
+    };
+
+    upsertMeta('meta[property="og:type"]', 'property', 'og:type', 'website');
+    upsertMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
+    upsertMeta('meta[property="og:site_name"]', 'property', 'og:site_name', 'Tigrcorn');
+    upsertMeta('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image');
+    upsertMeta('meta[name="twitter:title"]', 'name', 'twitter:title', title);
+    upsertMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
 
     // Update/Insert JSON-LD schema tag
     const existingScript = document.getElementById('json-ld-schema');

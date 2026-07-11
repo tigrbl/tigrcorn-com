@@ -1,4 +1,5 @@
 import React from 'react';
+import SyntaxCode from '../components/SyntaxCode';
 import { ShieldCheck, ArrowUpRight, CheckCircle2, AlertTriangle, FileText, Globe, Key, HelpCircle } from 'lucide-react';
 import { stableRelease } from '../data';
 
@@ -122,9 +123,11 @@ export default function Proof({ onNavigate }: ProofProps) {
         <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
           Tigrcorn's release manager signs each package distribution prior to PyPI uploading. Standard SHA-256 artifacts verification balances local packages with canonical sources. You can cross-reference package distributions hashes directly via:
         </p>
-        <code className="block bg-slate-950 border border-slate-900 px-3 py-2.5 rounded text-[11px] font-mono text-slate-300 break-all select-all leading-normal">
-          curl -s https://pypi.org/pypi/tigrcorn/json | jq '.releases."{stableRelease.version}"[].digests.sha256'
-        </code>
+        <SyntaxCode
+          code={`curl -s https://pypi.org/pypi/tigrcorn/json | jq '.releases."${stableRelease.version}"[].digests.sha256'`}
+          language="bash"
+          className="block bg-slate-950 border border-slate-900 px-3 py-2.5 rounded text-[11px] font-mono break-all select-all leading-normal"
+        />
       </section>
 
     </div>

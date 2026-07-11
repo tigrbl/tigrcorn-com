@@ -2,6 +2,7 @@ import React from 'react';
 import { Settings, Shield, Terminal, BookOpen, AlertTriangle, Play, Sliders } from 'lucide-react';
 import { stableRelease } from '../data';
 import CopyableCode from '../components/CopyableCode';
+import SyntaxCode from '../components/SyntaxCode';
 
 export default function Operations() {
   const precedenceData = [
@@ -68,9 +69,7 @@ tigrcorn app:app \\
               </div>
               <div className="text-sm font-bold text-white group-hover:text-orange-400 transition">{item.source}</div>
               <p className="text-xs text-slate-400 leading-normal">{item.description}</p>
-              <code className="text-[10px] font-mono block bg-slate-900 p-2 rounded text-slate-300 select-all border border-slate-900 overflow-x-auto">
-                {item.example}
-              </code>
+              <SyntaxCode code={item.example} language="bash" className="text-[10px] font-mono block bg-slate-900 p-2 rounded select-all border border-slate-900 overflow-x-auto" />
             </div>
           ))}
         </div>

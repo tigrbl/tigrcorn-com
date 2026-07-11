@@ -16,7 +16,9 @@ export const stableRelease: StableRelease = {
   pypiUrl: 'https://pypi.org/project/tigrcorn/',
   githubUrl: 'https://github.com/tigrbl/tigrcorn',
   docsUrl: 'https://docs.tigrcorn.com',
+  discordUrl: 'https://discord.gg/jzvrbEtTtt',
   installCommand: 'python -m pip install tigrcorn',
+  uvInstallCommand: 'uv add tigrcorn',
   basicRunCommand: 'tigrcorn module.path:app --host 127.0.0.1 --port 8000'
 };
 
@@ -336,7 +338,10 @@ Tigrcorn implements this specification perfectly.
 To run a FastAPI, Starlette, or custom ASGI3 app, install Tigrcorn and target your module entry point:
 
 \`\`\`bash
-# 1. Install Tigrcorn stable
+# 1. Install Tigrcorn stable with uv
+uv add tigrcorn
+
+# Or install into the active environment with pip
 python -m pip install tigrcorn
 
 # 2. Run with default parameters

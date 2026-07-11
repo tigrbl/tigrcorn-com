@@ -2,6 +2,7 @@ import React from 'react';
 import { protocols } from '../data';
 import { ShieldCheck, Info, CheckCircle2, AlertTriangle, HelpCircle, ArrowUpRight } from 'lucide-react';
 import { SupportStatus } from '../types';
+import SyntaxCode from './SyntaxCode';
 
 export default function ProtocolMatrix() {
   const getStatusIcon = (status: SupportStatus) => {
@@ -70,9 +71,7 @@ export default function ProtocolMatrix() {
               </div>
               <div className="pt-2">
                 <span className="text-xs font-mono uppercase text-slate-500 block mb-1">CLI Config Example</span>
-                <code className="text-xs block bg-slate-900 border border-slate-800 p-2 rounded text-orange-400 whitespace-pre-wrap font-mono break-all">
-                  {proto.configExample}
-                </code>
+                <SyntaxCode code={proto.configExample} language="bash" className="text-xs block bg-slate-900 border border-slate-800 p-2 rounded whitespace-pre-wrap font-mono break-all" />
               </div>
               {proto.rfcOrSpec && (
                 <div className="text-xs text-slate-500 flex items-center gap-1">
@@ -116,9 +115,7 @@ export default function ProtocolMatrix() {
                 </td>
                 {/* Config Example */}
                 <td className="px-6 py-5">
-                  <code className="block bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded text-orange-400 font-mono text-xs whitespace-pre select-all">
-                    {proto.configExample}
-                  </code>
+                  <SyntaxCode code={proto.configExample} language="bash" className="block bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded font-mono text-xs whitespace-pre select-all" />
                 </td>
                 {/* Conformance Bound RFC */}
                 <td className="px-6 py-5 whitespace-nowrap text-xs text-slate-400">

@@ -11,9 +11,22 @@ Tigrcorn is an ASGI3 Python web server built for APIs, edge services, and protoc
 
 ## Quick Start CLI
 ```bash
+uv add tigrcorn
+# or
 python -m pip install tigrcorn
 tigrcorn module.path:app --host 127.0.0.1 --port 8000
 ```
+
+## Canonical Discovery Links
+- Website: https://tigrcorn.com/
+- Documentation: https://docs.tigrcorn.com/
+- Source: https://github.com/tigrbl/tigrcorn
+- Releases: https://tigrcorn.com/releases/
+- Protocol matrix: https://tigrcorn.com/protocols/
+- Product proof: https://tigrcorn.com/proof/
+- Sitemap index: https://tigrcorn.com/sitemap.xml
+- Full AI reference: https://tigrcorn.com/llms-full.txt
+- Discord community: https://discord.gg/jzvrbEtTtt
 
 ## Blessed Deployment Profiles (`--profile <name>`)
 - `default`: Safe zero-config baseline. Binds loops, single worker, plain TCP/1.1.

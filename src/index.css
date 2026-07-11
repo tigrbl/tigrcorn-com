@@ -114,3 +114,77 @@ button:focus-visible {
   outline: 2px solid #F27D26;
   outline-offset: 4px;
 }
+
+/* Syntax highlighting shared by terminal, recipe, matrix, and article code blocks. */
+code[class*="language-"] {
+  color: #e5e7eb;
+  text-shadow: none;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #7d8998;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #a7b0bd;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #fb7185;
+}
+
+.token.boolean,
+.token.number {
+  color: #c4b5fd;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #86efac;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: #fdba74;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: #7dd3fc;
+}
+
+.token.keyword {
+  color: #f0abfc;
+}
+
+.token.regex,
+.token.important {
+  color: #fcd34d;
+}
+
+.token.important,
+.token.bold {
+  font-weight: 700;
+}
+
+.token.italic {
+  font-style: italic;
+}

@@ -6,7 +6,9 @@ export interface StableRelease {
   pypiUrl: string;
   githubUrl: string;
   docsUrl: string;
+  discordUrl: string;
   installCommand: string;
+  uvInstallCommand: string;
   basicRunCommand: string;
 }
 

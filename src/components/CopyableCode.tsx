@@ -1,5 +1,6 @@
 import React from 'react';
 import { Copy, Check, Terminal } from 'lucide-react';
+import SyntaxCode from './SyntaxCode';
 
 interface CopyableCodeProps {
   code: string;
@@ -74,7 +75,7 @@ export default function CopyableCode({ code, language = 'bash', title }: Copyabl
       {/* Code Container */}
       <div className="p-4 overflow-x-auto max-w-full text-slate-100 select-text bg-slate-900">
         <pre className="whitespace-pre scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
-          <code>{code}</code>
+          <SyntaxCode code={code} language={language} />
         </pre>
       </div>
     </div>

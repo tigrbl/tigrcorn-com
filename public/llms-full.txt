@@ -12,6 +12,8 @@ This is the comprehensive developer and operator reference manual for the Tigrco
 - **Secondary Browser Diagnostics**: `@tigrcorn/wt-peer-probes` (NPM)
 - **Source Coordinates**: [github.com/tigrbl/tigrcorn](https://github.com/tigrbl/tigrcorn)
 - **Operator Documentation**: [docs.tigrcorn.com](https://docs.tigrcorn.com)
+- **Discord Community**: [Join Tigrcorn on Discord](https://discord.gg/jzvrbEtTtt)
+- **Sitemap Index**: [tigrcorn.com/sitemap.xml](https://tigrcorn.com/sitemap.xml)
 
 ---
 
@@ -19,6 +21,8 @@ This is the comprehensive developer and operator reference manual for the Tigrco
 
 ### installation
 ```bash
+uv add tigrcorn
+# or
 python -m pip install tigrcorn
 ```
 
