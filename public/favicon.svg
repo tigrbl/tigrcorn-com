@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Tigrcorn">
+  <defs>
+    <clipPath id="avatar-clip">
+      <circle cx="64" cy="64" r="50"/>
+    </clipPath>
+  </defs>
+  <circle cx="64" cy="64" r="62" fill="#0c0c0c"/>
+  <circle cx="64" cy="64" r="57" fill="#fff7ed" stroke="#f27d26" stroke-width="4"/>
+  <image
+    href="/assets/brand/tigrcorn/tigrcorn-favicon-v3.png"
+    x="14"
+    y="14"
+    width="100"
+    height="100"
+    preserveAspectRatio="xMidYMid meet"
+    clip-path="url(#avatar-clip)"
+  />
+</svg>

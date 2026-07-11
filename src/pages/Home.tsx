@@ -4,6 +4,7 @@ import { stableRelease } from '../data';
 import CopyableCode from '../components/CopyableCode';
 import ProfileSelector from '../components/ProfileSelector';
 import ArchitectureFlow from '../components/ArchitectureFlow';
+import QuickStartExamples from '../components/QuickStartExamples';
 
 interface HomeProps {
   onNavigate: (path: string) => void;
@@ -14,13 +15,6 @@ export default function Home({ onNavigate }: HomeProps) {
     e.preventDefault();
     onNavigate(path);
   };
-
-  const quickStartPyCode = `from fastapi import FastAPI
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"status": "online", "engine": "Tigrcorn ASGI3"}`;
 
   return (
     <div className="space-y-12 py-8">
@@ -217,7 +211,7 @@ def read_root():
             Get Up and Running in 30 Seconds
           </h2>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Configure your Python entry points and launch Tigrcorn with your preferred ASGI3 frameworks. Seamless compatibility with FastAPI, Starlette, BlackSheep, or custom ASGI modules.
+            Start with Tigrbl for a governed application surface, bring an existing FastAPI app, or run a framework-free ASGI3 callable directly.
           </p>
           <div className="space-y-2 pt-1">
             <div className="flex gap-2 text-xs text-slate-400 font-medium">
@@ -229,15 +223,8 @@ def read_root():
           </div>
         </div>
         
-        <div className="lg:col-span-7 space-y-4">
-          <div>
-            <span className="text-xs font-mono text-slate-500 block mb-1">1. Declare your ASGI3 app (main.py)</span>
-            <CopyableCode code={quickStartPyCode} language="python" title="main.py" />
-          </div>
-          <div>
-            <span className="text-xs font-mono text-slate-500 block mb-1">2. Run via Tigrcorn CLI</span>
-            <CopyableCode code="tigrcorn main:app --host 127.0.0.1 --port 8000" language="bash" title="Terminal launch" />
-          </div>
+        <div className="lg:col-span-7">
+          <QuickStartExamples />
         </div>
       </section>
 
