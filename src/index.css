@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  /* Bento Grid precise color overrides */
+  --color-slate-950: #0C0C0C; /* primary velvet black */
+  --color-slate-900: #0F0F0F; /* slightly darker nav / header */
+  --color-slate-800: #151515; /* bento card matte black */
+  --color-slate-700: #1E1E1E; /* lighter card interactive state */
+  --color-slate-600: #262626;
+  --color-slate-400: #9CA3AF;
+  --color-slate-300: #D1D5DB;
+  --color-slate-200: #E5E7EB;
+  --color-slate-100: #F3F4F6;
+  
+  --color-orange-500: #F27D26; /* Tigrcorn primary accent orange */
+  --color-orange-600: #E06D1B; /* dark hover orange */
+  --color-orange-400: #FF8E3D; /* light brand orange */
+  --color-orange-300: #FFA86B;
+}
+
+/* Custom baseline styling for the technical aesthetic */
+html {
+  scroll-behavior: smooth;
+  background-color: #0C0C0C;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #0C0C0C;
+  color: #E5E7EB;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display), var(--font-sans);
+}
+
+/* Custom Scrollbar to match Bento design */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #151515;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1E1E1E;
+}
+
+/* Premium micro-interactions and Bento classes */
+.bento-card {
+  background-color: #151515;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1rem; /* rounded-2xl */
+  padding: 1.5rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  background-color: #181818;
+  transform: translateY(-2px);
+}
+
+.bento-featured {
+  background: linear-gradient(135deg, #1A1108 0%, #151515 100%);
+  border: 1px solid rgba(242, 125, 38, 0.15);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-featured:hover {
+  border-color: rgba(242, 125, 38, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Glow-dot and indicator light styles */
+.glow-dot-green {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #10B981;
+  border-radius: 9999px;
+  box-shadow: 0 0 10px #10B981;
+}
+
+.glow-dot-orange {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #F27D26;
+  border-radius: 9999px;
+  box-shadow: 0 0 10px #F27D26;
+}
+
+/* Screen reader focus outline rules */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #F27D26;
+  outline-offset: 4px;
+}

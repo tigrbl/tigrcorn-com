@@ -1,18 +1,20 @@
-# tigrcorn.com
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-Standalone MdWrk lander repository for [tigrcorn.com](https://tigrcorn.com).
+# Run and deploy your AI Studio app
 
-## Commands
+This contains everything you need to run your app locally.
 
-- `npm ci`
-- `npm run check`
-- `npm run build`
-- `npm run docker:build`
-- `npm run dns:plan` (uses PyPI `npmctl>=0.3.10` plus `npmctl-namecheap>=0.3.10`)
-- `npm run proxy:plan` (uses PyPI `npmctl`)
+View your app in AI Studio: https://ai.studio/apps/5f482cf7-e945-49a9-bec4-d2946b4ec0a8
 
-The GitHub workflows install `npmctl>=0.3.10` and `npmctl-namecheap>=0.3.10` from PyPI, then use `npmctl validate`, `npmctl plan`, and `npmctl apply` against `desired-state/`.
+## Run Locally
 
-## Deployment
+**Prerequisites:**  Node.js
 
-This repo deploys as the `tigrcorn-com` self-hosted Docker service. DNS is managed through the PyPI `npmctl-namecheap>=0.3.10` provider for the `tigrcorn.com` zone and is declared in `desired-state/dns.yaml`.
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

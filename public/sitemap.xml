@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://tigrcorn.com/sitemap-main.xml</loc>
+    <lastmod>2026-07-11</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://tigrcorn.com/sitemap-protocols.xml</loc>
+    <lastmod>2026-07-11</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://tigrcorn.com/sitemap-operations.xml</loc>
+    <lastmod>2026-07-11</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://tigrcorn.com/sitemap-articles.xml</loc>
+    <lastmod>2026-07-11</lastmod>
+  </sitemap>
+</sitemapindex>

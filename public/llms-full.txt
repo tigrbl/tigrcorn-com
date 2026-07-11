@@ -1,0 +1,193 @@
+# Tigrcorn Web Server — Full Technical Specification
+
+This is the comprehensive developer and operator reference manual for the Tigrcorn ASGI3 high-performance Python web server. It provides all necessary API surfaces, deployment profiles, protocol matrices, and architectural configurations for LLMs, developers, and agents.
+
+---
+
+## 1. TECHNICAL METADATA
+- **Latest Stable Release**: 0.3.17 (Published June 18, 2026)
+- **Supported Python Runtimes**: `>=3.10,<3.15` (Python 3.10, 3.11, 3.12, 3.13, and prerelease 3.14)
+- **Open-Source License**: Apache-2.0
+- **Primary PyPI Package**: `tigrcorn`
+- **Secondary Browser Diagnostics**: `@tigrcorn/wt-peer-probes` (NPM)
+- **Source Coordinates**: [github.com/tigrbl/tigrcorn](https://github.com/tigrbl/tigrcorn)
+- **Operator Documentation**: [docs.tigrcorn.com](https://docs.tigrcorn.com)
+
+---
+
+## 2. QUICK START CLI & PROGRAMMATIC ENTRY
+
+### installation
+```bash
+python -m pip install tigrcorn
+```
+
+### CLI Command Pattern
+```bash
+tigrcorn module.path:app --host 127.0.0.1 --port 8000
+```
+
+### Programmatic Embedding (Python asyncio)
+```python
+import asyncio
+from tigrcorn import EmbeddedServer
+
+async def main():
+    # Embedded runtime with custom lifecycle hooks
+    server = EmbeddedServer(
+        app="app.main:app",
+        host="127.0.0.1",
+        port=8000,
+        profile="strict-h1-origin"
+    )
+    await server.serve()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+---
+
+## 3. CORE PROTOCOL MATRIX
+
+Tigrcorn matches modern web transports with explicit, sandboxed operational rules.
+
+| Protocol / Standard | Status | RFC / Spec | CLI Flag / Profile Setting | Primary Use Case |
+|---|---|---|---|---|
+| **HTTP/1.1** | Stable Core | RFC 9112 | `--profile strict-h1-origin` | Default backward-compatible APIs & reverse-proxies. |
+| **HTTP/2** | Stable Core | RFC 9113 | `--certfile cert.pem --keyfile key.pem` | High-throughput APIs & multiplexed microservices. |
+| **HTTP/3** | Stable Core | RFC 9114 | `--profile strict-h3-edge` | Mobile clients, high-latency networks, instant reconnects. |
+| **QUIC** | Stable Core | RFC 9000 | `--quic-only --bind-udp 0.0.0.0:443` | Raw binary streaming, IoT telemetry, low-latency sessions. |
+| **WebSocket** | Stable Core | RFC 6455 | `--ws-ping-interval 15` | Full-duplex real-time communication & active pushes. |
+| **mTLS 1.3** | Stable Core | RFC 8446 | `--verify-client mandatory` | Zero-trust enterprise service meshes & verified gateways. |
+| **Static Delivery** | Stable Core | RFC 9110 | `--static-mount /assets:./dist` | Kernel zero-copy SPA serving without worker overhead. |
+| **WebTransport Probe**| Experimental| W3C Draft  | `--enable-experimental-webtransport` | Bidirectional client-server stream probing under HTTP/3. |
+
+---
+
+## 4. BLESSED DEPLOYMENT PROFILES (`--profile <name>`)
+
+Ditch arbitrary connection defaults. Choose from predefined, secure operational states.
+
+### 1. `default`
+- **Purpose**: Local debugging and fast prototyping.
+- **INI Sample**:
+  ```ini
+  [server]
+  protocols = http/1.1
+  workers = 1
+  timeouts_handshake = 5.0
+  proxy_headers_trust = false
+  ```
+- **CLI**: `tigrcorn main:app`
+
+### 2. `strict-h1-origin`
+- **Purpose**: Traditional production microservices behind load balancers (AWS ALB, GCP HTTPS LB, Nginx).
+- **INI Sample**:
+  ```ini
+  [server]
+  protocols = http/1.1
+  enforce_host_matching = true
+  trusted_proxies = 10.0.0.0/8,172.16.0.0/12
+  keepalive_timeout = 65.0
+  ```
+- **CLI**: `tigrcorn main:app --profile strict-h1-origin --allowed-hosts api.example.com --trusted-proxies 10.0.0.0/8`
+
+### 3. `strict-h2-origin`
+- **Purpose**: Secure service-to-service gRPC or HTTP/2 RPCs.
+- **INI Sample**:
+  ```ini
+  [server]
+  protocols = http/1.1, h2
+  tls_min_version = 1.3
+  h2_max_concurrent_streams = 100
+  hpack_table_size = 4096
+  ```
+- **CLI**: `tigrcorn main:app --profile strict-h2-origin --certfile cert.pem --keyfile key.pem`
+
+### 4. `strict-h3-edge`
+- **Purpose**: Facing public clients directly on high-speed ports. Dual TCP/UDP binder.
+- **INI Sample**:
+  ```ini
+  [server]
+  protocols = http/1.1, h2, h3
+  bind_tcp = 0.0.0.0:443
+  bind_udp = 0.0.0.0:443
+  quic_allow_0rtt = false
+  alt_svc_max_age = 86400
+  ```
+- **CLI**: `tigrcorn main:app --profile strict-h3-edge --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:443`
+
+### 5. `strict-mtls-origin`
+- **Purpose**: Cryptographic client validation under zero-trust guidelines.
+- **INI Sample**:
+  ```ini
+  [server]
+  protocols = h2
+  tls_min_version = 1.3
+  client_auth = mandatory
+  trusted_client_cas = /etc/tigrcorn/mesh-trust.pem
+  crl_path = /etc/tigrcorn/crl/
+  ```
+- **CLI**: `tigrcorn main:app --profile strict-mtls-origin --certfile cert.pem --keyfile key.pem --client-ca-file mesh-trust.pem --verify-client mandatory`
+
+### 6. `static-origin`
+- **Purpose**: Serve single page applications and CSS/JS assets at native speeds.
+- **INI Sample**:
+  ```ini
+  [server]
+  protocols = http/1.1, h2
+  static_mounts = /:./dist
+  precompressed = br, gzip
+  enable_byte_ranges = true
+  cache_control_default = max-age=31536000, immutable
+  ```
+- **CLI**: `tigrcorn main:app --profile static-origin --static-mount /:./dist --precompressed brotli,gzip`
+
+---
+
+## 5. CONNECTION ARCHITECTURE & PIPELINE FLOW
+
+Tigrcorn's execution flow isolates slow client connections from Python's main processing loop to protect workers from thread starvation.
+
+```
+                  [ PHYS_NET: Incoming Connections ]
+                                  |
+                                  v
+              [ TIGRCORN-LISTNER: Native Socket Pool ]
+                                  |
+              +-------------------+-------------------+
+              | (TCP)                                 | (UDP Datagrams)
+              v                                       v
+     [ tigrcorn-tls ]                       [ tigrcorn-quic ]
+    TLS Session Manager                    QUIC Transport Session
+              |                                       |
+              +-------------------+-------------------+
+                                  | (Decrypted Streams)
+                                  v
+                [ tigrcorn-h1 / h2 / h3 Codecs ]
+                      Protocol Demux Queues
+                                  |
+                                  v
+                    [ Connection Router Core ]
+                      In-Memory Channel ring
+                                  |
+                                  v
+                    [ ASGI3: Python Applications ]
+                      FASTAPI / Starlette workers
+```
+
+---
+
+## 6. EXPLICIT NON-GOALS & BOUNDARIES
+- **No Legacy WSGI Adapters**: WSGI (Django/Flask) runtimes must run via ASGI adapters like Starlette. There is no native sync thread pool for WSGI.
+- **No Legacy ASGI2 support**: Support is strictly limited to ASGI3 specification frameworks.
+- **No Packet Hijacking**: Dual TCP + UDP edge processes maintain separate listeners. Standard browser transition relies entirely on Alt-Svc compliance.
+
+---
+
+## 7. HISTORIC RELEASE ARCHIVE
+- **0.3.17 (2026-06-18)**: Stable release. Coordinated aggregate updates across 14 components. Solved multiplexed HTTP/2 socket closes.
+- **0.3.16 (2026-05-12)**: Stable release. Introduced unified HTTP/3 socket recycling & `@tigrcorn/wt-peer-probes` NPM diagnostics.
+- **0.3.15 (2026-04-03)**: Stable release. First unified build of all 14 repository packages.
+- **0.3.18.dev2 (2026-07-02)**: Development prerelease snapshot. Evaluates custom memory-mapped ring buffers for fast UDP datagram receiving.

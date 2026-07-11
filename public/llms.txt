@@ -1,0 +1,29 @@
+# Tigrcorn Web Server API
+
+Tigrcorn is an ASGI3 Python web server built for APIs, edge services, and protocol-heavy applications.
+
+## Technical Metadata
+- **Latest Stable Version**: 0.3.17 (published June 18, 2026)
+- **Supported Python**: >=3.10,<3.15 (Python 3.10 - 3.14)
+- **License**: Apache-2.0
+- **Primary Package Coordinate**: `tigrcorn` (PyPI)
+- **Browser-Side Package Coordinate**: `@tigrcorn/wt-peer-probes` (NPM)
+
+## Quick Start CLI
+```bash
+python -m pip install tigrcorn
+tigrcorn module.path:app --host 127.0.0.1 --port 8000
+```
+
+## Blessed Deployment Profiles (`--profile <name>`)
+- `default`: Safe zero-config baseline. Binds loops, single worker, plain TCP/1.1.
+- `strict-h1-origin`: Conservative HTTP/1.1 origin. Strict Host matching, proxy IP validation CIDR.
+- `strict-h2-origin`: TLS-backed HTTP/2 origin. Requires cert/key, TLS 1.3 mandated, ALPN, caps streams.
+- `strict-h3-edge`: Dual TCP + UDP edge. Alt-Svc headers on TCP, 0-RTT rejected, QUIC parameters active.
+- `strict-mtls-origin`: Authenticated h2 mesh origin. Mandates valid client certificate and trust anchors CA.
+- `static-origin`: Static asset delivery. Direct kernel sendfile, precompressed Brotli/Gzip routing, cache headers.
+
+## Conformance & Scope Constraints
+- **Supported Protocols**: HTTP/1.1, HTTP/2, HTTP/3, WebSocket, QUIC, TLS 1.3, Static mounts.
+- **Experimental**: WebTransport (using client-side probe tools).
+- **Out of Scope (Explicit Non-Goals)**: WSGI adapters, legacy ASGI2 connections, Trio runtime pathways.
