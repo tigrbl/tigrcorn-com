@@ -9,11 +9,15 @@ services:
     expose:
       - "80"
     networks:
-      dockerwp:
+      tigrcorn-com-private: {}
+      portwyrm-edge:
         aliases:
           - tigrcorn-com
 
 networks:
-  dockerwp:
-    name: dockerwp
+  tigrcorn-com-private:
+    name: tigrcorn-com-private
+    internal: true
+  portwyrm-edge:
+    name: portwyrm-edge
     external: true
