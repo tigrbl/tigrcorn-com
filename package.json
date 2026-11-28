@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
+    "docker:build": "docker compose build tigrcorn-com",
     "check": "npm run lint",
     "preview": "vite preview",
     "proxy:target-check": "node scripts/validate-proxy-target.mjs",
